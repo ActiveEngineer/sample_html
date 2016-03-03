@@ -1,0 +1,98 @@
+<!Doctype html>
+<html>
+<head>
+<script>
+var x_position = 0, y_position = 0, yboolean = false, xboolean = false, the_timer, the_image, count = 0;
+function set_timer()
+{
+  var rootNode = document.getElementById("tbody");
+  while(rootNode.firstChild)
+  {
+    rootNode.removeChild(rootNode.firstChild);
+  }
+  the_image = document.createElement("img");
+  the_image.style.position = "absolute";
+  the_image.style.top = "200px";
+  the_image.style.left = "200px";
+  //the_image.setAttribute("width",100px);
+  //the_image.width = "100px";
+  var rootNode = document.getElementById("tbody");
+  rootNode.appendChild(the_image);
+  startGame();
+  // the_image = document.getElementById("pool_image");
+  // if((y_position + the_image.height) == window.innerHeight || (y_position  == 0 && yboolean))
+  // yboolean = !yboolean;
+  // if((x_position + the_image.width) == window.innerWidth || (x_position == 0 && xboolean))
+  // xboolean = !xboolean;
+  // if(yboolean)
+  // {
+  //   y_position = y_position-1;
+  // }else {
+  //       y_position = y_position+1;
+  // }
+  // if(xboolean)
+  // {
+  //   x_position = x_position-1;
+  // }else {
+  //       x_position = x_position+1;
+  // }
+  // the_image.style.top = y_position + "px";
+  // the_image.style.left = x_position + "px";
+  // the_timer = setTimeout(set_timer,5);
+}
+function stopFuckingAround()
+{
+  var gameOver = document.createTextNode("Got me" + count/2 + "seconds");
+  var rootNode = document.getElementById("tbody");
+  while(rootNode.firstChild)
+  {
+    rootNode.removeChild(rootNode.firstChild);
+  }
+  rootNode.appendChild(gameOver);
+  the_image.src = "dead_pool5.jpg";
+  rootNode.appendChild(the_image);
+  clearTimeout(the_timer);
+}
+
+function startGame()
+{
+  //var root = document.getElementById("tbody");
+  count++;
+  the_image = document.body.childNodes[0];
+the_image.style.height = "200px";
+  //console.log(the_image);
+var randNumber = Math.random() * 3;
+//console.log(randNumber);
+randNumber = Math.floor(randNumber);
+//console.log(randNumber);
+var randHeight = Math.random() * window.innerHeight;
+randHeight = Math.floor(randHeight);
+randHeight = (randHeight + the_image.height > window.innerHeight)?(window.innerHeight - the_image.height):(randHeight);
+// var diff = window.innerHeight - randHeight;
+// if(diff > 0)
+// randHeight = randHeight - diff;
+var randWidth = Math.random() * window.innerWidth;
+randWidth = Math.floor(randWidth);
+randWidth = (randWidth + the_image.width > window.innerWidth)?(window.innerWidth - the_image.width):(randWidth);
+// diff = window.innerWidth - randWidth;
+// if(diff > 0)
+// randWidth = randWidth - diff;
+console.log(randWidth);
+the_image.style.top = randHeight + "px";
+the_image.style.left = randWidth + "px";
+
+the_image.src = "dead_pool"+ randNumber + ".jpg";
+the_image.onclick = stopFuckingAround;
+the_timer = setTimeout(startGame,500);
+}
+</script>
+
+</head>
+
+<body id="tbody">
+  click on below button to startGame.
+  <button onclick="set_timer()" id="startbtn">Start Game</button>
+  <!-- <img src="dead_pool0.jpg" id="pool_image" height="500" style="position:absolute; left:0"/>
+  <button onclick="stopFuckingAround()">Freez</button> -->
+</body>
+</html>
